@@ -1,7 +1,11 @@
 #!/bin/bash
 
-#Utilisation :    jackstart usb true  #true for reset modules
+##Default
+#comm=$1
+#mod=$2
 
+comm=usb
+mod=reset
 
 echo "---------request kill pulseaudio"
 pulseaudio -k; 
@@ -29,7 +33,7 @@ echo "--------------- run jackd----------"
 #echo "device: -dhw:0,3  (HDMI)"
 #jackd -R -ndefault -dalsa -dhw:0,3 -r44100 -p1024 -n2 &
 
-if  [ $1 == "usb" ]; then
+if  [ $comm == "usb" ]; then
 ##Works , for usb scarlett 2i4
     echo "device: -dhw:USB,0 (USB)"
     jackd -R -ndefault -dalsa -dhw:USB,0 -r44100 -p1024 -n2 &
@@ -49,7 +53,7 @@ qjackctl &
 
 
 
-if  [ -z "$2" ]; then
+if  [ -z "$mod" ]; then
    echo "No changes for modules"
 else
  echo " Unloading modules"
